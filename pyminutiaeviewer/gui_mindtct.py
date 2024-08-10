@@ -1,9 +1,10 @@
 from tkinter import N, W, E, DoubleVar, IntVar
 from tkinter.ttk import LabelFrame, Label, Entry, Scale, Radiobutton, Button
 from types import LambdaType, FunctionType
-from typing import Union
+from typing import Union, List
+from pyminutiaeviewer.minutia import Minutia
 
-from PIL import ImageEnhance, ImageOps
+from PIL import ImageEnhance, ImageOps, Image
 from overrides import overrides
 
 from pyminutiaeviewer.gui_common import NotebookTabBase, validation_command, validate_float_between_0_and_1, \
@@ -97,7 +98,7 @@ class MindtctFrame(NotebookTabBase):
         self.reset()
 
     @overrides
-    def fingerprint_drawing(self, image):
+    def fingerprint_drawing(self, image)-> Image:
         # Apply opacity settings
         image.putalpha(int(self.fp_opacity_var.get() * 2.55))
 
@@ -112,7 +113,7 @@ class MindtctFrame(NotebookTabBase):
         return image
 
     @overrides
-    def minutiae_filtering(self, minutiae):
+    def minutiae_filtering(self, minutiae) -> List[Minutia]:
         return list(filter(lambda m: m.quality > self.min_quality_var.get(), minutiae))
 
 

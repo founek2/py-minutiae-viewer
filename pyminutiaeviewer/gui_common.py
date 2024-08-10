@@ -139,7 +139,7 @@ def scale_image_to_fit_minutiae_canvas(canvas: Canvas, im: Image.Image) -> Tuple
     canvas_size = (canvas.winfo_width(), canvas.winfo_height())
     ratio = aspect_ratio_for_scaling(canvas_size, im.size)
     new_size = (int(w * ratio), int(h * ratio))
-    return im.resize(new_size, Image.ANTIALIAS), ratio
+    return im.resize(new_size, Image.LANCZOS), ratio
 
 
 def validate_float(value_if_allowed: str, character: str) -> bool:
